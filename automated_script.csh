@@ -9,7 +9,7 @@ set output_dir="/proj/Aurora_SG23701/WORK/v-jennie_lee/$block_name/run/r_n202409
 # Find the "link.log" file in the directory
 set link_log_file=`find $search_dir -name "link.log"`
 # Find the "$block_name.DesignInfo.rpt" file in the directory
-set vt_group_file=`find $search_dir -name "$block_name.DesignInfo.rpt"`
+set design_info_file=`find $search_dir -name "$block_name.DesignInfo.rpt"`
 
 # Define the output CSV file path
 set output_csv="$output_dir/QOR_report.csv"
@@ -22,13 +22,15 @@ if (-e $link_log_file) then
     # Search for the keyword "successfully linked" in the file
     set success=`grep -i "successfully linked" $link_log_file`
 
-    # Check if the vt_group_file exists
-    if (-e $vt_group_file) then
-        # Grep the specific line from the vt_group_file
-        set line = `grep "init check.vt Ratio. NUM: uLVT --- SUMMARY --- 14.840" $vt_group_file`
+    # Check if the design_info_file exists
+    if (-e $design_info_file) then
+        # Grep the specific line from the design_info_file
+        set line = `grep "init check.vt Ratio. NUM: uLVT --- SUMMARY --- 14.840" $design_info_file`
 
         # Extract the ulvt_ratio value
         set ulvt_ratio = `echo $line | awk -F ' --- SUMMARY --- ' '{print $2}'`
+
+        # Add the '%' sign to the ulvt_ratio value
         set ulvt_ratio = "$ulvt_ratio%"
     else
         echo "Error: $block_name.DesignInfo.rpt file not found in the specified directory."
