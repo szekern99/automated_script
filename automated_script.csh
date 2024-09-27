@@ -1,7 +1,8 @@
 #!/bin/csh
 set block_name="enyo core"
+set mode="func"
 # Define the search directory where to search for the file
-set search_dir="/proj/Aurora_SG23701/WORK/v-jennie_lee/$block_name/run/r_n20240918/init_check/func.tt0p75v.wcl.cworst_ccworst_t_0c.setup"
+set search_dir="/proj/Aurora_SG23701/WORK/v-jennie_lee/$block_name/run/r_n20240918/init_check/$mode.tt0p75v.wcl.cworst_ccworst_t_0c.setup"
 
 # Define the directory where the output CSV should be stored
 set output_dir="/proj/Aurora_SG23701/WORK/v-jennie_lee/$block_name/run/r_n20240918/testing"
@@ -12,7 +13,7 @@ set link_log_file=`find $search_dir -name "link.log"`
 set design_info_file=`find $search_dir -name "$block_name.DesignInfo.rpt"`
 
 # Define the output CSV file path
-set output_csv="$output_dir/QOR_report.csv"
+set output_csv="$output_dir/QOR_$mode_report.csv"
 
 # Initialize the variable for uLVT ratio
 set ulvt_ratio = "N/A"
