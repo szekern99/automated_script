@@ -1,0 +1,3 @@
+Information: total 6957 library cells are unused (LNK-046)
+Design 'enyo_core' was successfully linked.
+Information: There are 2216880 leaf cells, ports, hiers and 3700052 nets in the design (LNK-047)
