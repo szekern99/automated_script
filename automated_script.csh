@@ -29,6 +29,7 @@ if (-e $link_log_file) then
 
         # Extract the ulvt_ratio value
         set ulvt_ratio = `echo $line | awk -F ' --- SUMMARY --- ' '{print $2}'`
+        set ulvt_ratio = "$ulvt_ratio%"
     else
         echo "Error: $block_name.DesignInfo.rpt file not found in the specified directory."
     endif
