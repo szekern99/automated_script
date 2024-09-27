@@ -13,7 +13,7 @@ set link_log_file=`find $search_dir -name "link.log"`
 set design_info_file=`find $search_dir -name "$block_name.DesignInfo.rpt"`
 
 # Define the output CSV file path
-set output_csv="$output_dir/QOR_$mode_report.csv"
+set output_csv="$output_dir/QOR_${block_name}_${mode}_report.csv"
 
 # Initialize the variable for uLVT ratio
 set ulvt_ratio = "N/A"
