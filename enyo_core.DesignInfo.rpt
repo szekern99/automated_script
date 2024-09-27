@@ -1,0 +1,17 @@
+init check. Port. output: Count --- SUMMARY --- 731
+init check. Port. output: Floating --- SUMMARY --- 0
+init check. Port. output: Floating_noCase --- SUMMARY --- 0
+init check. Port. total : Count --- SUMMARY --- 1685
+init check.vt. AREA: LVT --- SUMMARY --- 23200.02144
+init check.vt. AREA: SVT --- SUMMARY --- 154332.712078
+init check.vt. AREA: uLVT --- SUMMARY --- 42683.0227199
+init check. vt. NUM: LVT --- SUMMARY --- 310354
+init check.vt. NUM: SVT --- SUMMARY --- 1550563
+init check. vt. NUM: uLVT --- SUMMARY --- 324295
+init check.vt Ratio. AREA: LVT --- SUMMARY --- 10.535
+init check.vt Ratio. AREA: SVT --- SUMMARY --- 70.083
+init check.vt Ratio. AREA: uLVT --- SUMMARY --- 19.382
+init check.vt Ratio. NUM: LVT --- SUMMARY --- 14.202
+init check.vt Ratio. NUM: SVT --- SUMMARY --- 70.957
+init check.vt Ratio. NUM: uLVT --- SUMMARY --- 14.840
+init check: Design:Clock:miss Hold Uncer --- SUMMARY --- 0
