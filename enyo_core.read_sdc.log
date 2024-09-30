@@ -1,0 +1,38 @@
+set load
+set load
+
+set load
+set load
+set load
+set load
+set load
+
+Begin to read sdc ...
+Reading /proj/Aurora_SG23701/WORK/v-jennie_lee/enyo_core/sdc/20240918/enyo_core. func.sdc ...
+
+# Created by write sdc on Thu Jan 25 10:27:08 2024
+
+set sdc version 2.1
+Information: Setting sdc version outside of an SDC file has no effect (SDC-1)
+set max fanout 32 [current_design]
+set load -pin_load 0.02 [get_ports cb_sampleconfigreq_o]
+set load -pin_load 0.02 [get_ports cb_samplepstate_o]
+set load -pin_load 0.02 [get_ports {cb_nvcpumntirq_o[0]}]
+set load -pin_load 0.02 [get_ports cb_iritready_o]
+set load -pin_load 0.02 [get_ports cb_icctvalid o]
+set load -pin_load 0.02 [get_ports {cb_icctdata_o[15]}]
+set load -pin_load 0.02 [get_ports {cb_icctdata_o[14]}]
+-pin_load 0.02 [get_ports {cb_icctdata_o[13]}]
+-pin_load 0.02 [get_ports {cb_icctdata_o[12]}]
+set load -pin_load 0.02 [get_ports {cb_icctdata_o[11]}]
+-pin_load 0.02 [get_ports {cb_icctdata_o[10]}]
+-pin_load 0.02 [get_ports {cb_icctdata_o[9]}]
+-pin_load 0.02 [get_ports {cb_icctdata_o [8]}]
+-pin_load 0.02 [get_ports {cb_icctdata_o[7]}]
+-pin_load 0.02 [get_ports {cb_icctdata_o [6]}]
+set load -pin_load 0.02 [get_ports {cb_icctdata_o[5]}]
+set load -pin load 0.02 [get_ports {cb_icctdata_o[4]}]
+set_load -pin_load 0.02 [get_ports {cb_icctdata_o[3]}]
+set load -pin_load 0.02 [get_ports {cb_icctdata_o [2]}]
+set_load -pin_load 0.02 [get_ports {cb_icctdata_o[1]}]
+"enyo core. read sdc. log" 9234L, 1460883C
