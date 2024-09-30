@@ -1,17 +1,137 @@
-init check. Port. output: Count --- SUMMARY --- 731
-init check. Port. output: Floating --- SUMMARY --- 0
-init check. Port. output: Floating_noCase --- SUMMARY --- 0
-init check. Port. total : Count --- SUMMARY --- 1685
-init check.vt. AREA: LVT --- SUMMARY --- 23200.02144
-init check.vt. AREA: SVT --- SUMMARY --- 154332.712078
-init check.vt. AREA: uLVT --- SUMMARY --- 42683.0227199
-init check. vt. NUM: LVT --- SUMMARY --- 310354
-init check.vt. NUM: SVT --- SUMMARY --- 1550563
-init check. vt. NUM: uLVT --- SUMMARY --- 324295
-init check.vt Ratio. AREA: LVT --- SUMMARY --- 10.535
-init check.vt Ratio. AREA: SVT --- SUMMARY --- 70.083
-init check.vt Ratio. AREA: uLVT --- SUMMARY --- 19.382
-init check.vt Ratio. NUM: LVT --- SUMMARY --- 14.202
-init check.vt Ratio. NUM: SVT --- SUMMARY --- 70.957
-init check.vt Ratio. NUM: uLVT --- SUMMARY --- 14.840
-init check: Design:Clock:miss Hold Uncer --- SUMMARY --- 0
+init_check. check. version: pre --- SUMMARY ---
+init_check.design. cell:hi_pin_density --- SUMMARY --- 77.86%
+init_check.design. cell:hi_tr --- SUMMARY --- 7.560%
+init_check. design. drv: maxcap --- SUMMARY ---
+init_check. design. drv: maxfanout --- SUMMARY --- 32.000000
+init_check.design. drv: maxtran --- SUMMARY ---
+init_check. design. version:netlist --- SUMMARY --- /proj/Aurora_SG23701/WORK/v-jennie_lee/enyo_core/netlist/20240918/enyo_core.v.gz
+init_check. design. version: sdc --- SUMMARY --- /proj/Aurora_SG23701/WORK/v-jennie_lee/enyo_core/sdc/20240918/enyo_core.func.sdc
+init_check. Design. vtRatio. LVT --- SUMMARY --- 14.202
+init_check. Design. vtRatio. SVT --- SUMMARY --- 70.957
+init_check. Design. vtRatio. uLVT --- SUMMARY --- 14.840
+init_check. func. CheckTiming: noClock --- SUMMARY --- 70114
+init_check. func. CheckTiming: unConstrains --- SUMMARY --- 51906
+init_check. func. ERROR: Check_Timing --- SUMMARY --- PASS
+init_check. func. ERROR: Link_Design --- SUMMARY --- PASS
+init_check. func. ERROR: Read_Sdc --- SUMMARY --- PASS
+init_check. func. ERROR: Read_Verilog --- SUMMARY --- PASS
+init check. func. ERROR: Update_Timing --- SUMMARY --- PASS
+init_check. func. hold: cgate2out --- SUMMARY --- NA:0.000:0
+init_check. func. hold: in2cgate --- SUMMARY ---- 0.036:0.143:63
+init_check. func. hold: in2mem --- SUMMARY ---- 0.089 :- 36.283:1542
+init_check. func. hold: in2out --- SUMMARY ---- 0.024:0.006:2
+init_check. func. hold: in2reg --- SUMMARY ---- 0.098:0.000:0
+init_check. func. hold: in2sub --- SUMMARY --- NA:0.000:0
+init_check. func. hold: mem2reg --- SUMMARY --- 0.101:1666.541:9018
+init_check. func.hold:reg2out --- SUMMARY --- 0.002:0.000:0
+init_check. func. hold: reg2reg --- SUMMARY ---- 0.148 :- 754.688:37761
+init_check. func. hold: sub2reg --- SUMMARY --- NA:0.000:0
+init_check. func. Sdc: CrossClock --- SUMMARY --- ERROR
+init_check. func. SDC: Quality --- SUMMARY --- PASS
+init_check. func. setup: cgate2out --- SUMMARY --- NA:0.000:0
+init_check. func. setup: in2cgate --- SUMMARY ---- 0.084:11.311:63
+init_check. func. setup: in2mem --- SUMMARY --- 0.248:788.508:1542
+init_check. func. setup: in2out --- SUMMARY --- 0.465:1.866:2
+init_check. func. setup: in2reg --- SUMMARY ---- 0.076:0.000:0
+init_check. func. setup: in2sub --- SUMMARY --- NA:0.000:0
+init check. func. setup:mem2reg --- SUMMARY ---- 0.080:1997.562:9018
+init_check. func. setup: reg2out --- SUMMARY ---- 0.025:0.000:0
+init_check. func. setup: reg2reg --- SUMMARY ---- 0.260 :- 105.953:3325
+init_check. func. setup: sub2reg --- SUMMARY --- NA:0.000:0
+init_check. func. WARN: Check_Timing --- SUMMARY --- WARN
+init check. func. WARN: Read_Sdc --- SUMMARY --- PASS
+init check. func. WARN: Update_Timing --- SUMMARY --- WARN
+init check. Inst. area: buffers --- SUMMARY --- 2280.97584
+init check. Inst. area: combinational --- SUMMARY --- 120400.79904
+init_check. Inst. area: icg --- SUMMARY --- 3211.43472
+init check. Inst. area: inverters --- SUMMARY --- 8191.92600001
+init check. Inst. area: macro --- SUMMARY --- 0
+init check. inst. Area: MEM --- SUMMARY --- 337748.137679
+init check. Inst. area: mems --- SUMMARY --- 337748.137679
+init check. Inst. area: pad_cell --- SUMMARY --- 0
+init check. Inst. area: sequential --- SUMMARY --- 86130.62064
+init check. inst. area: total --- SUMMARY --- 557963.893919
+init_check. inst. clock: low Driver --- SUMMARY --- 330
+init_check. inst. clock: low Vt --- SUMMARY --- 8926
+init_check. inst. clock:no_Symmetry --- SUMMARY --- 179
+init check. Inst. num: buffers --- SUMMARY --- 47521
+init check. Inst. num: combinational --- SUMMARY --- 1694083
+init check. Inst. num: icg --- SUMMARY --- 9113
+init_check. Inst. num: inverters --- SUMMARY --- 283647
+init check. Inst. num: macro --- SUMMARY --- 0
+init check. inst. NUM: MEM --- SUMMARY --- 148
+init check. Inst. num: mems --- SUMMARY --- 148
+init check. Inst. num: pad_cell --- SUMMARY --- 0
+init check. Inst. num: sequential --- SUMMARY --- 150848
+init_check. inst. num: total --- SUMMARY --- 2185360
+init check. Inst. Percentage: buffers --- SUMMARY --- 2.17%
+init_check. Inst. Percentage: combinational --- SUMMARY --- 77.52%
+init check. Inst. Percentage: icg --- SUMMARY --- 0.42%
+init_check. Inst. Percentage: inverters --- SUMMARY --- 12.98%
+init_check. Inst. Percentage: macro --- SUMMARY- -- 0%
+init_check. Inst. Percentage: mems --- SUMMARY --- 0.01%
+init_check. Inst. Percentage: pad_cell --- SUMMARY --- 0%
+init_check. Inst. Percentage: sequential --- SUMMARY --- 6.90%
+init_check. Netlist. Basic: gateCount --- SUMMARY --- 5.365881
+init_check. netlist. basic: instcount --- SUMMARY --- 2185360
+init_check. netlist. Basic: mem --- SUMMARY --- 148
+init_check. netlist. Basic: memBITS --- SUMMARY --- 4486144
+init_check. netlist. basic: uniquify --- SUMMARY --- 0
+init_check. netlist. Cell: DontUse --- SUMMARY --- 2
+init_check. netlist. Cell: DontUse LIB --- SUMMARY --- 8931
+init_check. netlist. Cell:MB2DFF --- SUMMARY --- 9229
+init_check. netlist. Cell: MB4DFF --- SUMMARY --- 41659
+init_check. netlist. Cell:MB6DFF --- SUMMARY --- 0
+init_check. netlist. Cell: MB8DFF --- SUMMARY --- 0
+init_check. netlist. Cell: MBDFF --- SUMMARY --- 62.92%
+init_check. netlist. Lib:min Period --- SUMMARY --- 0:0
+init_check. netlist. Lib:min PulseWidth --- SUMMARY --- 0:0
+init_check.netlist. Net: Clock Fanout --- SUMMARY --- 390: 0.02%
+init_check.netlist. Net: Data Fanout --- SUMMARY --- 3565: 0.14%
+init_check.netlist. Net: Dont Touch --- SUMMARY --- 0
+init_check. netlist. Net:icg Fanout --- SUMMARY --- 332
+init_check. netlist. Net: Multi Driver --- SUMMARY --- 0
+init_check. Pin. input : Floating --- SUMMARY --- 5
+init_check. Pin.mem: Floating --- SUMMARY --- 0.00%
+init_check. Pin. output: Floating --- SUMMARY --- 10857
+init_check. Port. inout : Count --- SUMMARY --- 0
+init_check. Port. inout : Floating --- SUMMARY --- 0
+init_check. Port. input: Count --- SUMMARY --- 954
+init_check. Port. input: Floating --- SUMMARY --- 144
+init_check. Port. output : Count --- SUMMARY --- 731
+init_check. Port. output: Floating --- SUMMARY --- 0
+init_check. Port. output: Floating_noCase --- SUMMARY --- 0
+init_check. Port. total: Count --- SUMMARY --- 1685
+init_check.vt. AREA: LVT --- SUMMARY --- 23200.02144
+init_check.vt. AREA: SVT --- SUMMARY --- 154332. 712078
+init_check.vt. AREA: uLVT --- SUMMARY --- 42683.0227199
+init_check.vt. NUM: LVT --- SUMMARY --- 310354
+init_check.vt. NUM: SVT --- SUMMARY --- 1550563
+init_check.vt. NUM: uLVT --- SUMMARY --- 324295
+init_check.vt Ratio. AREA: LVT --- SUMMARY --- 10.535
+init_check.vt Ratio. AREA: SVT --- SUMMARY --- 70.083
+init_check.vt Ratio. AREA: uLVT --- SUMMARY --- 19.382
+init_check.vt Ratio. NUM: LVT --- SUMMARY --- 14.202
+init_check.vt Ratio. NUM: SVT --- SUMMARY --- 70.957
+init_check.vt Ratio. NUM: uLVT --- SUMMARY --- 14.840
+init_check: Design: Clock: miss_Hold_Uncer --- SUMMARY --- 0
+init_check: Design: Clock:miss_Setup Uncer --- SUMMARY --- 0
+init_check: Design: Clock:miss_tran_fall --- SUMMARY --- 0
+init_check: Design: Clock:miss_tran_rise --- SUMMARY --- 0
+init_check: Design: Clock:no_Sinks --- SUMMARY --- 0
+init_check: Design: Clock:no_Source --- SUMMARY --- 0
+init_check: Design: Clock: on_HierPin --- SUMMARY --- 0
+init_check: Design:Clock: on_LibPin --- SUMMARY --- 0
+init_check: Design: Clock: on_Port --- SUMMARY --- 6
+init_check: Design: Net: async_Fanout --- SUMMARY --- 155
+init_check: Design: timing: async --- SUMMARY --- 0
+init_check: port: input: greater_than --- SUMMARY --- 0
+init_check: port: input: greater_than 100 --- SUMMARY --- 0
+init_check: port: input: less_than --- SUMMARY --- 0
+init_check: port: input: miss_transition_fall --- SUMMARY --- 107
+init_check: port: input: miss_transition_rise --- SUMMARY --- 107
+init_check: port: output: greater_than --- SUMMARY --- 0
+init_check: port: output: greater_than_100p --- SUMMARY --- 0
+init_check: port: output: less_than --- SUMMARY --- 0
+init_check: port: output: miss_pinLoad --- SUMMARY --- 92
+init_check: port: output: pinLoad --- SUMMARY --- 0
