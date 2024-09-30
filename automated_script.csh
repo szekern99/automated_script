@@ -20,8 +20,8 @@ set ulvt_ratio = "N/A"
 
 # Check if the "link.log" file exists
 if (-e $link_log_file) then
-    # Search for the keyword "successfully linked" in the file
-    set success=`grep -i "successfully linked" $link_log_file`
+    # Search for the keyword "was successfully linked" in the file
+    set success=`grep -i "was successfully linked" $link_log_file`
 
     # Check if the design_info_file exists
     if (-e $design_info_file) then
