@@ -35,18 +35,20 @@ set sdc_warnings_count = 0
 set min_period_errors_count = 0
 set min_period_warnings_count = 0
 
-# Debugging: Print the variables
-echo "link_log_file: $link_log_file"
-echo "design_info_file: $design_info_file"
-echo "sdc_log_file: $sdc_log_file"
-echo "min_period_file: $min_period_file"
-
 # Check if the "link.log" file exists
 if ("$link_log_file" != "") then
-    # Search for the keyword "successfully linked" in the file
-    set success=`grep -i "successfully linked" $link_log_file`
-    echo "success: $success"
+    # Search for the keyword "was successfully linked" in the file
+    set success_run=`grep -i "was successfully linked" $link_log_file` 
 
+    # Determine the link status
+    if ("$success_run" != "") then
+        set link_status = "link pass"
+	echo "success: $success_run"
+    else
+        set link_status = "link fail"
+	echo "Design ${block_name} was failed to link"
+    endif 
+    
     # Check if the design_info_file exists
     if ("$design_info_file" != "") then
         # Grep the specific line for uLVT ratio from the design_info_file
@@ -120,7 +122,7 @@ if ("$link_log_file" != "") then
     endif
 
     # Determine the link status
-    if ("$success" != "") then
+    if ("$success_run" != "") then
         set link_status = "link pass"
     else
         set link_status = "link fail"
@@ -134,10 +136,8 @@ if ("$sdc_log_file" != "") then
     # Search for the keywords "error" and "warning" (case-insensitive) in the file
     set sdc_errors=`grep -ic "error" $sdc_log_file`
     set sdc_warnings=`grep -ic "warning" $sdc_log_file`
-    echo "sdc_errors: $sdc_errors"
-    echo "sdc_warnings: $sdc_warnings"
-    
-    # Update sdc_status if errors are found
+
+# Update sdc_status if errors are found
     if ("$sdc_errors" != "0" || "$sdc_warnings" != "0") then
         set sdc_status = "error"
         set sdc_errors_count = $sdc_errors
@@ -152,8 +152,6 @@ if ("$min_period_file" != "") then
     # Search for the keywords "error" and "warning" (case-insensitive) in the file
     set min_period_errors=`grep -ic "error" $min_period_file`
     set min_period_warnings=`grep -ic "warning" $min_period_file`
-    echo "min_period_errors: $min_period_errors"
-    echo "min_period_warnings: $min_period_warnings"
     
     # Update min_period_pass if errors are found
     if ("$min_period_errors" != "0" || "$min_period_warnings" != "0") then
@@ -166,8 +164,8 @@ else
 endif
 
 # Write to the CSV file
-echo "comment,ulvt_ratio,mem_num,read sdc error,min_period_pass,port_num,floating ports (inputs),floating ports (outputs),floating ports (inouts),unconstrained point,no clock" > $output_csv
-echo "$link_status,$ulvt_ratio,$mem_num,$sdc_status,$min_period_pass,$port_num,$floating_ports_inputs,$floating_ports_outputs,$floating_ports_inouts,$unconstrained_point,$no_clock" >> $output_csv
+echo "blk name,comment,ulvt_ratio,read sdc error,mem_num,min_period_pass,port_num,floating ports (inputs),floating ports (outputs),floating ports (inouts),unconstrained point,no clock" > $output_csv
+echo "$block_name,$link_status,$ulvt_ratio,$sdc_status,$mem_num,$min_period_pass,$port_num,$floating_ports_inputs,$floating_ports_outputs,$floating_ports_inouts,$unconstrained_point,$no_clock" >> $output_csv
 
 # Echo errors and warnings count
 echo "SDC Log - Errors: $sdc_errors_count, Warnings: $sdc_warnings_count"
