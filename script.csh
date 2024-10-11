@@ -1,33 +1,34 @@
 #!/bin/csh
-set block_name="vc9000d subsys"
+set block_name="vc9000d_subsys"
+set version ="20240918"
 set modes=("func" "llist" "mbist" "scan_slow_capture" "scan_fast_capture" "scan_shift")
 
 # Define the directory where the output CSV should be stored
-set output_dir="/proj/Aurora SG23701/WORK/v-jennie lee/$block name/run/r n20240918/testing"
-set output_csv="Soutput_dir/QOR_${block_name}_all_modes_report.csv"
+set output_dir="/proj/Aurora SG23701/WORK/v-jennie lee/$block name/run/r_n$version/testing"
+set output_csv="$output_dir/QOR_${block_name}_all_modes_report.csv"
 
 # Write the header to the CSV file
-echo "mode, blk name, comment, ulvt_ratio, read_sdc_error,mem_num,min_period_pass, port_num, floating_ports_inputs, floating_ports_outputs, floating_ports_inouts, unconstrained_point, no_clock" > "$output_csv"
+echo "mode,blk_name,version,comment,ulvt_ratio,read_sdc_error,mem_num,min_period_pass,port_num,floating_ports_inputs,floating_ports_outputs,floating_ports_inouts,unconstrained_point,no_clock" > "$output_csv"
 
 foreach mode ($modes)
 # Define the search directory where to search for the file
-set search_dir="/proj/Aurora_SG23701/WORK/v-jennie_lee/$block_name/run/r_n20240918/init_check/$mode.tt0p75v.wcl.cworst_ccworst_t_0c.setup"
+set search_dir="/proj/Aurora_SG23701/WORK/v-jennie_lee/$block_name/run/r_n$version/init_check/$mode.tt0p75v.wcl.cworst_ccworst_t_0c.setup"
 # Find the required files in the directory
-set link_log_file=`find "$search_dir" -name "link. log"`
-set design_info_file=`find "Ssearch_dir" -name "DesignInfo.rpt"`
-set sdc_log_file=`find "$search_dir" -name "$block_name. read sdc. log"`
-set min_period_file=`find "Ssearch_dir" -name "Sblock_name.min_period.rpt"`
+set link_log_file=`find "$search_dir" -name "link.log"`
+set design_info_file=`find "$search_dir" -name "DesignInfo.rpt"`
+set sdc_log_file=`find "$search_dir" -name "$block_name.read_sdc.log"`
+set min_period_file=`find "$search_dir" -name "$block_name.min_period.rpt"`
 
 # Initialize the variables
-set link status = "N/A"
-set ulvt ratio = "N/A"
-set mem num = "N/A"
-set sdc status = "N/A"
+set link_status = "N/A"
+set ulvt_ratio = "N/A"
+set mem_num = "N/A"
+set sdc_status = "N/A"
 set min_period_pass = "N/A"
 set port_num = "N/A"
 set floating_ports_inputs = "N/A"
-Set floating_ports_outputs = "N/A
-set floating_ports inouts = "N/A"
+Set floating_ports_outputs = "N/A"
+set floating_ports_inouts = "N/A"
 set unconstrained_point = "N/A"
 set no_clock = "N/A"
 set sdc_errors_count = 0
@@ -37,7 +38,7 @@ set min_period_warnings_count = 0
 
 # Check if the "link. log" file exists
 if ("$link_log_file" != "") then
-set success_run='grep -i "was successfully linked" "$link_log_file"
+set success_run=`grep -i "was successfully linked" "$link_log_file"`
 if ("$success_run" != "") then
 set link status = "link pass"
 else
@@ -73,28 +74,54 @@ set no_clock=`echo "$line_no_clock" | awk -F ' --- SUMMARY --- ' '{print $2}'`
 endif
 
 if ("$sdc_log_file" != "") then
-set sdc_errors=`grep -ic "error" "$sdc_log_file"`
-set sdc_warnings=`grep -ic "warning" "$sdc_log_file"`
-set sdc status = "clean"
-if ("$sdc_errors" != 0 | | "$sdc_warnings" != "0") then
-set sdc_status = "error"
-set sdc_errors_count = $sdc_errors
-set sdc_warnings_count = $sdc_warnings
-endif
+    set sdc_errors=`grep -ic "error" "$sdc_log_file"`
+    set sdc_warnings=`grep -ic "warning" "$sdc_log_file"`
+    set sdc_status = "clean"
+    if ("$sdc_errors" != 0 || "$sdc_warnings" != 0) then
+        set sdc_status = "error"
+        set sdc_errors_count = $sdc_errors
+        set sdc_warnings_count = $sdc_warnings
+        echo "SDC errors: $sdc_errors_count, SDC warnings: $sdc_warnings_count"
+        
+        # Display errors
+        if ("$sdc_errors" != 0) then
+            echo "Errors found in $sdc_log_file:"
+            grep -i -C 2 "error" "$sdc_log_file"
+        endif
+
+        # Display warnings
+        if ("$sdc_warnings" != 0) then
+            echo "Warnings found in $sdc_log_file:"
+            grep -i -C 2 "warning" "$sdc_log_file"
+        endif
+    endif
 endif
 
 if ("$min_period_file" != "") then
-set min_period_errors=`grep -ic "error" "$min_period_file"`
-set min_period_warnings=`grep -ic "warning" "$min_period_file"`
-set min_period_pass = "pass"
-if ("$min_period_errors" != 0 | | "$min_period_warnings" != "0") then
-set min_period_pass = "no"
-set min_period_errors_count = $min_period_errors
-set min_period_warnings_count = $min_period_warnings
-endif
+    set min_period_errors=`grep -ic "error" "$min_period_file"`
+    set min_period_warnings=`grep -ic "warning" "$min_period_file"`
+    set min_period_pass = "pass"
+    if ("$min_period_errors" != 0 || "$min_period_warnings" != 0) then
+        set min_period_pass = "no"
+        set min_period_errors_count = $min_period_errors
+        set min_period_warnings_count = $min_period_warnings
+        echo "Min period errors: $min_period_errors_count, Min period warnings: $min_period_warnings_count"
+        
+        # Display errors
+        if ("$min_period_errors" != 0) then
+            echo "Errors found in $min_period_file:"
+            grep -i -C 2 "error" "$min_period_file"
+        endif
+
+        # Display warnings
+        if ("$min_period_warnings" != 0) then
+            echo "Warnings found in $min_period_file:"
+            grep -i -C 2 "warning" "$min_period_file"
+        endif
+    endif
 endif
 
-echo "$mode, $block_name, $link_status, $ulvt_ratio, $sdc_status, $mem_num, $min_period_pass, $port_num, $floating_ports_inputs, $floating_ports_outputs, $floating_ports_inouts, $unconstrained_point, $no_clock" >> "$output_csv"
+echo "$mode, $block_name, $version, $link_status, $ulvt_ratio, $sdc_status, $mem_num, $min_period_pass, $port_num, $floating_ports_inputs, $floating_ports_outputs, $floating_ports_inouts, $unconstrained_point, $no_clock" >> "$output_csv"
 end
 
 # Now, append the setup violations information from the func mode at the end of the CSV
