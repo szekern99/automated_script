@@ -1,10 +1,10 @@
 #!/bin/csh
 set block_name="vc9000d_subsys"
-set version ="20240918"
+set version="20240918"
 set modes=("func" "llist" "mbist" "scan_slow_capture" "scan_fast_capture" "scan_shift")
 
 # Define the directory where the output CSV should be stored
-set output_dir="/proj/Aurora SG23701/WORK/v-jennie lee/$block name/run/r_n$version/testing"
+set output_dir="/proj/Aurora_SG23701/WORK/v-jennie lee/$block_name/run/r_n$version/testing"
 set output_csv="$output_dir/QOR_${block_name}_all_modes_report.csv"
 
 # Write the header to the CSV file
@@ -27,7 +27,7 @@ set sdc_status = "N/A"
 set min_period_pass = "N/A"
 set port_num = "N/A"
 set floating_ports_inputs = "N/A"
-Set floating_ports_outputs = "N/A"
+set floating_ports_outputs = "N/A"
 set floating_ports_inouts = "N/A"
 set unconstrained_point = "N/A"
 set no_clock = "N/A"
@@ -40,9 +40,9 @@ set min_period_warnings_count = 0
 if ("$link_log_file" != "") then
 set success_run=`grep -i "was successfully linked" "$link_log_file"`
 if ("$success_run" != "") then
-set link status = "link pass"
+set link_status = "link pass"
 else
-set link status = "link fail"
+set link_status = "link fail"
 endif
 endif
 
@@ -125,8 +125,7 @@ echo "$mode, $block_name, $version, $link_status, $ulvt_ratio, $sdc_status, $mem
 end
 
 # Now, append the setup violations information from the func mode at the end of the CSV
-set global_timing_file=`find "/proj/Aurora_SG23701/WORK/v-jennie_lee/$block_name/run/r_n20240918/init_check/func.tt0p75v.wcl.cworst_ccworst_t_0c.setup" -name
-"$block_name. global_timing.rpt"`
+set global_timing_file=`find "/proj/Aurora_SG23701/WORK/v-jennie_lee/$block_name/run/r_n20240918/init_check/func.tt0p75v.wcl.cworst_ccworst_t_0c.setup" -name "$block_name.global_timing.rpt"`
 if ("$global_timing_file" != "") then
 # Extract each line for WNS, TNS, and NUM
 set wns_data=`grep -A 6 "Setup violations" "$global_timing_file" | head -5 | tail -1`
