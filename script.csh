@@ -12,7 +12,7 @@ echo "mode,blk_name,version,comment,ulvt_ratio,read_sdc_error,mem_num,min_period
 
 foreach mode ($modes)
 # Define the search directory where to search for the file
-set search_dir="/proj/Aurora_SG23701/WORK/v-jennie_lee/$block_name/run/r_n$version/init_check/$mode.tt0p75v.wcl.cworst_ccworst_t_0c.setup"
+set search_dir="/proj/Aurora_SG23701/WORK/v-jennie_lee/$block_name/run/r_n${version}/init_check/$mode.tt0p75v.wcl.cworst_ccworst_t_0c.setup"
 # Find the required files in the directory
 set link_log_file=`find "$search_dir" -name "link.log"`
 set design_info_file=`find "$search_dir" -name "DesignInfo.rpt"`
@@ -47,30 +47,30 @@ endif
 endif
 
 if ("$design_info_file" != "") then
-set line_ulvt=`grep -i "init_check. vt Ratio. AREA: uLVT --- SUMMARY --- " "$design_info_file"`
-set ulvt ratio=`echo "$line_ulvt" | awk -F ' --- SUMMARY --- ' '{print $2}'`
+set line_ulvt=`grep -i "init_check.vt_Ratio.AREA:uLVT---SUMMARY---" "$design_info_file"`
+set ulvt_ratio=`echo "$line_ulvt" | awk -F '---SUMMARY---' '{print $2}'`
 set ulvt_ratio="$ulvt_ratio%"
 
-set line_mem=`grep -i "init check. inst. NUM: MEM --- SUMMARY --- " "$design_info_file"`
-set mem_num=`echo "$line_mem" | awk -F ' --- SUMMARY --- ' '{print $2}'`
+set line_mem=`grep -i "init_check.inst.NUM:MEM---SUMMARY---" "$design_info_file"`
+set mem_num=`echo "$line_mem" | awk -F '---SUMMARY---' '{print $2}'`
 
-set line port=`grep -i "init check. Port. total: Count --- SUMMARY --- " "$design_info_file"`
-set port_num='echo "$line_port" | awk -F ' --- SUMMARY --- ' '{print $2}'`
+set line_port=`grep -i "init_check.Port.total:Count---SUMMARY---" "$design_info_file"`
+set port_num='echo "$line_port" | awk -F '---SUMMARY---' '{print $2}'`
 
-set line_floating_inputs=`grep -i "init_check. Port. input: Floating --- SUMMARY --- " "$design_info_file"`
-set floating_ports_inputs=`echo "$line_floating_inputs" | awk -F ' --- SUMMARY --- ' '{print $2}'`
+set line_floating_inputs=`grep -i "init_check.Port.input:Floating---SUMMARY---" "$design_info_file"`
+set floating_ports_inputs=`echo "$line_floating_inputs" | awk -F '---SUMMARY---' '{print $2}'`
 
-set line_floating_outputs=`grep -i "init_check. Port. output: Floating --- SUMMARY --- " "$design_info file"`
-set floating_ports_outputs=`echo "$line_floating_outputs" | awk -F ' --- SUMMARY --- ' '{print $2}'`
+set line_floating_outputs=`grep -i "init_check.Port.output:Floating---SUMMARY---" "$design_info file"`
+set floating_ports_outputs=`echo "$line_floating_outputs" | awk -F '---SUMMARY---' '{print $2}'`
 
-set line_floating_inouts=`grep -i "init_check. Port. inout: Floating --- SUMMARY --- " "$design_info_file"`
-set floating_ports_inouts=`echo "$line_floating_inouts" | awk -F ' --- SUMMARY --- ' '{print $2}'`
+set line_floating_inouts=`grep -i "init_check.Port.inout:Floating---SUMMARY---" "$design_info_file"`
+set floating_ports_inouts=`echo "$line_floating_inouts" | awk -F '---SUMMARY---' '{print $2}'`
 
-set line_unconstrained=`grep -i "init_check. $mode. CheckTiming: unConstrains --- SUMMARY --- " "$design_info_file"`
-set unconstrained_point=`echo "$line_unconstrained" | awk -F ' --- SUMMARY --- ' '{print $2}'`
+set line_unconstrained=`grep -i "init_check.$mode.CheckTiming:unConstrains---SUMMARY---" "$design_info_file"`
+set unconstrained_point=`echo "$line_unconstrained" | awk -F '---SUMMARY---' '{print $2}'`
 
-set line_no_clock=`grep -i "init check. $mode. CheckTiming: noClock --- SUMMARY --- " "$design_info_file"`
-set no_clock=`echo "$line_no_clock" | awk -F ' --- SUMMARY --- ' '{print $2}'`
+set line_no_clock=`grep -i "init_check.$mode.CheckTiming:noClock---SUMMARY---" "$design_info_file"`
+set no_clock=`echo "$line_no_clock" | awk -F '---SUMMARY---' '{print $2}'`
 endif
 
 if ("$sdc_log_file" != "") then
@@ -155,7 +155,7 @@ s, $setup_reg_out_num, $setup_in_out_wns, $setup_in_out_tns, $setup_in_out_num" 
 
 # Extract each line for WNS, TNS, and NUM for hold violations
 set hold_wns_data=`grep -A 6 "Hold violations" "$global_timing_file" | head -5 | tail -1`
-set hold tns data=`grep -A 6 "Hold violations" "$global_timing_file" | head -6 | tail -1`
+set hold_tns_data=`grep -A 6 "Hold violations" "$global_timing_file" | head -6 | tail -1`
 set hold_num_data=`grep -A 6 "Hold violations" "$global_timing_file" | head -7 | tail -1`
 
 # Extract values for each column in hold violations
