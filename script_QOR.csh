@@ -25,49 +25,44 @@ check_file() {
 
 # Function to extract setup violations
 extract_setup_violations() {
-    local setup_file="$1"
+    local setup_file_path="$1"
 
-    wns_data=$(zcat "$setup_file" 2>/dev/null | grep -A 6 "Setup mode" | grep "WNS" | head -1 || echo "N/A")
-    tns_data=$(zcat "$setup_file" 2>/dev/null | grep -A 6 "Setup mode" | grep "TNS" | head -1 || echo "N/A")
-    num_data=$(zcat "$setup_file" 2>/dev/null | grep -A 6 "Setup mode" | grep -E "Violating Paths|All Paths" | head -2 || echo "N/A")
+    # Extract data using more precise grep/awk commands
+    wns_data=$(zcat "$setup_file" | grep -A 6 "Setup mode" | grep "WNS" | awk '{print $6, $10, $12, $14}')
+    tns_data=$(zcat "$setup_file" | grep -A 6 "Setup mode" | grep "TNS" | awk '{print $6, $10, $12, $14}')
+    num_data=$(zcat "$setup_file" | grep -A 6 "Setup mode" | grep -E "Violating Paths|All Paths" | awk '{print $6, $10, $12, $14}')
 
-    setup_reg_reg_wns=$(echo "$wns_data" | awk '{print $6}')
-    setup_reg_reg_tns=$(echo "$tns_data" | awk '{print $5}')
-    setup_reg_reg_num=$(echo "$num_data" | awk 'NR==1 {print $5}')
+    # Split and map extracted data to variables
+    read -r reg_reg_wns in_reg_wns reg_out_wns in_out_wns <<<"$wns_data"
+    read -r reg_reg_tns in_reg_tns reg_out_tns in_out_tns <<<"$tns_data"
+    read -r reg_reg_num in_reg_num reg_out_num in_out_num <<<"$num_data"
 
-    setup_in_reg_wns=$(echo "$wns_data" | awk '{print $10}')
-    setup_in_reg_tns=$(echo "$tns_data" | awk '{print $9}')
-    setup_in_reg_num=$(echo "$num_data" | awk 'NR==1 {print $9}')
-
-    setup_reg_out_wns=$(echo "$wns_data" | awk '{print $12}')
-    setup_reg_out_tns=$(echo "$tns_data" | awk '{print $11}')
-    setup_reg_out_num=$(echo "$num_data" | awk 'NR==1 {print $11}')
-
-    setup_in_out_wns=$(echo "$wns_data" | awk '{print $14}')
-    setup_in_out_tns=$(echo "$tns_data" | awk '{print $13}')
-    setup_in_out_num=$(echo "$num_data" | awk 'NR==1 {print $13}')
-
+    # Create the output CSV
     echo "Setup Violations:" >> "$output_csv"
     echo "reg->reg (WNS),reg->reg (TNS),reg->reg (NUM),in->reg (WNS),in->reg (TNS),in->reg (NUM),reg->out (WNS),reg->out (TNS),reg->out (NUM),in->out (WNS),in->out (TNS),in->out (NUM)" >> "$output_csv"
-    echo "$setup_reg_reg_wns,$setup_reg_reg_tns,$setup_reg_reg_num,$setup_in_reg_wns,$setup_in_reg_tns,$setup_in_reg_num,$setup_reg_out_wns,$setup_reg_out_tns,$setup_reg_out_num,$setup_in_out_wns,$setup_in_out_tns,$setup_in_out_num" >> "$output_csv"
+    echo "$reg_reg_wns,$reg_reg_tns,$reg_reg_num,$in_reg_wns,$in_reg_tns,$in_reg_num,$reg_out_wns,$reg_out_tns,$reg_out_num,$in_out_wns,$in_out_tns,$in_out_num" >> "$output_csv"
 }
 
 # Function to extract hold violations
 extract_hold_violations() {
     local hold_file="$1"
 
-    wns_data=$(zcat "$hold_file" 2>/dev/null | grep -A 6 "Hold mode" | grep "WNS" | head -1 || echo "N/A")
-    tns_data=$(zcat "$hold_file" 2>/dev/null | grep -A 6 "Hold mode" | grep "TNS" | head -1 || echo "N/A")
-    num_data=$(zcat "$hold_file" 2>/dev/null | grep -A 6 "Hold mode" | grep -E "Violating Paths|All Paths" | head -2 || echo "N/A")
+    wns_data=$(zcat "$hold_file" | grep -A 6 "Hold mode" | grep "WNS" | awk '{print $6, $10, $12, $14}')
+    tns_data=$(zcat "$hold_file" |grep -A 6 "Hold mode" | grep "TNS" | awk '{print $6, $10, $12, $14}')
+    num_data=$(zcat "$hold_file" |grep -A 6 "Hold mode" | grep -E "Violating Paths|All Paths" | awk '{print $6, $10, $12, $14}')
 
-    hold_reg_reg_wns=$(echo "$wns_data" | awk '{print $6}')
-    hold_reg_reg_tns=$(echo "$tns_data" | awk '{print $6}')
-    hold_reg_reg_num=$(echo "$num_data" | awk 'NR==1 {print $4}' | tr -d '|')
+    # Split and map extracted data to variables
+    read -r reg_reg_wns in_reg_wns reg_out_wns <<<"$wns_data"
+    read -r reg_reg_tns in_reg_tns reg_out_tns <<<"$tns_data"
+    read -r reg_reg_num in_reg_num reg_out_num <<<"$num_data"
 
+    # Append the hold violations data to the output CSV
     echo "Hold Violations:" >> "$output_csv"
     echo "reg->reg (WNS),reg->reg (TNS),reg->reg (NUM)" >> "$output_csv"
-    echo "$hold_reg_reg_wns,$hold_reg_reg_tns,$hold_reg_reg_num" >> "$output_csv"
+    echo "$reg_reg_wns,$reg_reg_tns,$reg_reg_num" >> "$output_csv" 
 }
+
+
 
 # Function to extract MBFF statistics and VT usage
 extract_mbdff_statistics() {
@@ -75,7 +70,7 @@ extract_mbdff_statistics() {
     local vt_usage_file="$2"
     local setup_file="$3"
 
-    bits_per_flop=$(grep "Bits Per Flop                :" "$mbdff_file" | awk '{print $5}' || echo "N/A")
+    bits_per_flop=$(grep "Bits Per Flop" "$mbdff_file" | awk '{print $5}' || echo "N/A")
     mb_conversion_ratio=$(grep "Multibit Conversion Ratio(%)" "$mbdff_file" | awk '{print $5}' | head -1 || echo "N/A")
     density=$(zcat "$setup_file" 2>/dev/null | grep "Density:" | awk '{print $2}' || echo "N/A")
     ulvt_ratio=$(grep -A 2 "#Area" "$vt_usage_file" | grep "Percentage(%)" | awk '{print $8}' || echo "N/A")
